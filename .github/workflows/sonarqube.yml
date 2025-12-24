@@ -10,7 +10,7 @@ on:
 
 jobs:
   sonarqube:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: -Dsonar.host.url=https://coraline-poetlike-unobsequiously.ngrok-free.dev
+          SONAR_HOST_URL: http://localhost:9000/
 
         with:
           args: >
