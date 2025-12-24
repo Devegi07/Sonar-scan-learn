@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -21,9 +22,12 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: sonarsource/sonarcloud-github-action@v2
+      - name: Run SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
         with:
-          organization: devegi07
-          projectKey: Devegi07_Sonar-scan-learn
+          args: >
+            -Dsonar.organization=devegi07
+            -Dsonar.projectKey=Devegi07_Sonar-scan-learn
+            -Dsonar.host.url=https://sonarcloud.io
         env:
           SONAR_TOKEN: ${{ secrets.AI_Monitor }}
