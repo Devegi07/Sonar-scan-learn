@@ -22,6 +22,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Check Java version
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          which java
+
       - name: Install SonarScanner CLI
         run: |
           wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.1.3023-linux.zip
@@ -29,9 +35,11 @@ jobs:
           sudo mv sonar-scanner-4.8.1.3023-linux /opt/sonar-scanner
           sudo ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
-      - name: Run SonarScanner
+      - name: Run SonarScanner with Java 17
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
+          PATH: ${{ env.JAVA_HOME }}/bin:${{ env.PATH }}
         run: |
           sonar-scanner \
             -Dsonar.organization=devegi07 \
