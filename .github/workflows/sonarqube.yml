@@ -21,7 +21,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=Devegi07
+            -Dsonar.organization=devegi07
             -Dsonar.projectKey=Devegi07_Sonar-scan-learn
             -Dsonar.host.url=https://sonarcloud.io
 
