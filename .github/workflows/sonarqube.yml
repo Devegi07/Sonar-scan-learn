@@ -22,12 +22,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1
+      - name: Install SonarScanner CLI
+        run: |
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.1.3023-linux.zip
+          unzip sonar-scanner-cli-4.8.1.3023-linux.zip
+          sudo mv sonar-scanner-4.8.1.3023-linux /opt/sonar-scanner
+          sudo ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+
+      - name: Run SonarScanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=devegi07
-            -Dsonar.projectKey=devegi07_Sonar-scan-learn
-            -Dsonar.host.url=https://sonarcloud.io
+        run: |
+          sonar-scanner \
+            -Dsonar.organization=devegi07 \
+            -Dsonar.projectKey=devegi07_Sonar-scan-learn \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
