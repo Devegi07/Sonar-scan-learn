@@ -13,36 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Check Java version
-        run: |
-          echo "JAVA_HOME=$JAVA_HOME"
-          java -version
-          which java
-
-      - name: Install SonarScanner CLI
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.1.3023-linux.zip
-          unzip sonar-scanner-cli-4.8.1.3023-linux.zip
-          sudo mv sonar-scanner-4.8.1.3023-linux /opt/sonar-scanner
-          sudo ln -sf /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
-
-      - name: Run SonarScanner with Java 17
+          organization: devegi07
+          projectKey: Devegi07_Sonar-scan-learn
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          JAVA_HOME: ${{ env.JAVA_HOME }}
-          PATH: /usr/local/bin:${{ env.JAVA_HOME }}/bin:${{ env.PATH }}
-        run: |
-          sonar-scanner \
-            -Dsonar.organization=devegi07 \
-            -Dsonar.projectKey=Devegi07_Sonar-scan-learn \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
+          SONAR_TOKEN: ${{ secrets.AI_Monitor }}
