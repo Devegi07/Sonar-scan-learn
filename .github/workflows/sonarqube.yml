@@ -22,6 +22,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Disable SonarCloud Automatic Analysis
+        run: |
+          echo "Disabling SonarCloud Automatic Analysis to avoid conflicts with CI analysis."
+          curl -X POST -u "$SONAR_TOKEN:" "https://sonarcloud.io/api/qualitygates/disable?projectKey=Devegi07_Sonar-scan-learn"
+
       - name: Run SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
