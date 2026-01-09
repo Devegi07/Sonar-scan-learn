@@ -29,5 +29,6 @@ jobs:
             -Dsonar.organization=devegi07
             -Dsonar.projectKey=Devegi07_Sonar-scan-learn
             -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.analysis.mode=publish
         env:
           SONAR_TOKEN: ${{ secrets.AI_Monitor }}
